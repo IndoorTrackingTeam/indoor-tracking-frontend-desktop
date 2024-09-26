@@ -178,7 +178,7 @@ class _NavbarState extends State<Navbar> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 5),
           for (int i = 0; i < _navItems.length; i++) ...[
             const SizedBox(height: 5),
             MouseRegion(
