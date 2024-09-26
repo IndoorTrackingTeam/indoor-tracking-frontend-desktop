@@ -14,6 +14,24 @@ class _PasswordScreenState extends State<PasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
 
+  Route _createRoute(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 400),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const curve = Curves.easeIn;
+
+        var curveTween = CurveTween(curve: curve);
+        var fadeAnimation = animation.drive(curveTween);
+
+        return FadeTransition(
+          opacity: fadeAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
   String? _emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, insira um email';
@@ -51,12 +69,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             color: Color(0xFFF2F2F2),
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LoginScreen(),
-              ),
-            );
+            Navigator.of(context).pushReplacement(_createRoute(LoginScreen()));
           },
         ),
       ),

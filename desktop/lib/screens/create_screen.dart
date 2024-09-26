@@ -3,16 +3,16 @@
 import 'package:desktop/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
-class EquipamentsScreen extends StatefulWidget {
+class CreateScreen extends StatefulWidget {
   final String _token;
   final int _selectedIndex;
-  const EquipamentsScreen(this._token, this._selectedIndex, {super.key});
+  const CreateScreen(this._token, this._selectedIndex, {super.key});
 
   @override
-  State<EquipamentsScreen> createState() => _EquipamentsScreenState();
+  State<CreateScreen> createState() => _CreateScreenState();
 }
 
-class _EquipamentsScreenState extends State<EquipamentsScreen> {
+class _CreateScreenState extends State<CreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _EquipamentsScreenState extends State<EquipamentsScreen> {
               padding: const EdgeInsets.all(20),
               child: const Center(
                 child: Text(
-                  'Equipaments',
+                  'Create',
                   style: TextStyle(fontSize: 24),
                 ),
               ),

@@ -25,6 +25,24 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   String _token = '';
 
+  Route _createRoute(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 400),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const curve = Curves.easeIn;
+
+        var curveTween = CurveTween(curve: curve);
+        var fadeAnimation = animation.drive(curveTween);
+
+        return FadeTransition(
+          opacity: fadeAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -58,12 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         _token = await userService.signInEmailPassword(email, password);
         await _saveLogin(_token);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EquipamentsScreen(_token, 0),
-          ),
-        );
+        Navigator.of(context)
+            .pushReplacement(_createRoute(EquipamentsScreen(_token, 1)));
       } catch (e) {
         if (e.toString().contains('email')) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -273,12 +287,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               GestureDetector(
                                 key: Key("forgot_password_key"),
                                 onTap: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PasswordScreen(),
-                                    ),
-                                  );
+                                  Navigator.of(context).pushReplacement(
+                                      _createRoute(PasswordScreen()));
                                 },
                                 child: Text(
                                   'Esqueceu a senha?',
@@ -306,12 +316,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           GestureDetector(
                             key: Key("register_button"),
                             onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(),
-                                ),
-                              );
+                              Navigator.of(context).pushReplacement(
+                                  _createRoute(RegisterScreen()));
                             },
                             child: Text(
                               'Não tem uma conta? Registre-se',

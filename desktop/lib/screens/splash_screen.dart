@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (isLoggedIn) {
       String token = prefs.getString('auth_token') ?? '';
       Navigator.of(context)
-          .pushReplacement(_createRoute(EquipamentsScreen(token, 0)));
+          .pushReplacement(_createRoute(EquipamentsScreen(token, 1)));
     } else {
       Navigator.of(context).pushReplacement(_createRoute(const LoginScreen()));
     }
@@ -36,18 +36,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Route _createRoute(Widget page) {
     return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 400),
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
+        const curve = Curves.easeIn;
 
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
+        var curveTween = CurveTween(curve: curve);
+        var fadeAnimation = animation.drive(curveTween);
 
-        return SlideTransition(
-          position: offsetAnimation,
+        return FadeTransition(
+          opacity: fadeAnimation,
           child: child,
         );
       },

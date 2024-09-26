@@ -20,6 +20,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
   bool _isLoading = false;
 
+  Route _createRoute(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 400),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const curve = Curves.easeIn;
+
+        var curveTween = CurveTween(curve: curve);
+        var fadeAnimation = animation.drive(curveTween);
+
+        return FadeTransition(
+          opacity: fadeAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
   String? _emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Coloque seu email, por favor';
@@ -245,11 +263,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           GestureDetector(
                             key: Key("have_account_button"),
                             onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()),
-                              );
+                              Navigator.of(context)
+                                  .pushReplacement(_createRoute(LoginScreen()));
                             },
                             child: Text(
                               'Já tenho uma conta',
