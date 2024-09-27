@@ -1,11 +1,11 @@
 // ignore: library_private_types_in_public_api
 // ignore_for_file: deprecated_member_use, use_build_context_synchronously
 
-import 'package:desktop/screens/create_screen.dart';
 import 'package:desktop/screens/equipaments_screen.dart';
 import 'package:desktop/screens/login_screen.dart';
 import 'package:desktop/screens/settings_screen.dart';
 import 'package:desktop/screens/users_screen.dart';
+import 'package:desktop/widgets/equipament_form.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,26 +49,37 @@ class _NavbarState extends State<Navbar> {
   ];
 
   void _onItemTap(int index) {
-    Widget page;
-
     if (_navItems[index]['title'] == 'Equipaments') {
-      page = EquipamentsScreen(widget.token, index);
+      Navigator.pushReplacement(
+        context,
+        _createRoute(EquipamentsScreen(widget.token, index)),
+      );
     } else if (_navItems[index]['title'] == 'Create') {
-      page = CreateScreen(widget.token, index);
+      showDialog(
+        context: context,
+        builder: (context) => EquipamentForm(),
+      );
     } else if (_navItems[index]['title'] == 'Users') {
-      page = UsersScreen(widget.token, index);
+      Navigator.pushReplacement(
+        context,
+        _createRoute(UsersScreen(widget.token, index)),
+      );
     } else if (_navItems[index]['title'] == 'Settings') {
-      page = SettingsScreen(widget.token, index);
+      Navigator.pushReplacement(
+        context,
+        _createRoute(SettingsScreen(widget.token, index)),
+      );
     } else if (_navItems[index]['title'] == 'Mobile App') {
-      page = EquipamentsScreen(widget.token, index);
+      Navigator.pushReplacement(
+        context,
+        _createRoute(EquipamentsScreen(widget.token, index)),
+      );
     } else {
-      page = EquipamentsScreen(widget.token, index);
+      Navigator.pushReplacement(
+        context,
+        _createRoute(EquipamentsScreen(widget.token, index)),
+      );
     }
-
-    Navigator.pushReplacement(
-      context,
-      _createRoute(page),
-    );
   }
 
   Future<void> _logout() async {

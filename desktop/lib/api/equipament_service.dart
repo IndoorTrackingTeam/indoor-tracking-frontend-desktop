@@ -62,4 +62,48 @@ class EquipamentService {
       throw Exception(e.toString());
     }
   }
+
+  Future<String> createEquipament({
+    required String name,
+    required String register,
+    required String espId,
+    required String image,
+  }) async {
+    final url = Uri.parse('$path/equipment/create');
+    final DateTime now = DateTime.now();
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept-Charset': 'UTF-8',
+    };
+
+    final body = jsonEncode({
+      'name': name,
+      'register': register,
+      'maintenance': 'false',
+      'c_room': 'none',
+      'c_date': now.toIso8601String(),
+      'esp_id': espId,
+      'image': image,
+    });
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 201) {
+        final responseData = jsonDecode(utf8.decode(response.bodyBytes));
+        return responseData['message'];
+      } else {
+        final errorMessage =
+            jsonDecode(utf8.decode(response.bodyBytes))['detail'];
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }
