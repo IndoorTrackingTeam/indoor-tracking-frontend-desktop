@@ -55,7 +55,12 @@ class _UserCreateFormState extends State<UserCreateForm> {
             const Spacer(),
             _buildTextField("Nome", nameController, context, Icons.person),
             _buildTextField("E-mail", emailController, context, Icons.email),
-            _buildTextField("Senha", passwordController, context, Icons.lock),
+            _buildTextField(
+              "Senha",
+              passwordController,
+              context,
+              Icons.lock,
+            ),
             const Spacer(),
             _isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -64,7 +69,7 @@ class _UserCreateFormState extends State<UserCreateForm> {
                     child: SizedBox(
                       width: 200,
                       height: 60,
-                      child: ElevatedButton(
+                      child: OutlinedButton(
                         onPressed: () async {
                           final String name = nameController.text;
                           final String email = emailController.text;

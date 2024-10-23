@@ -270,7 +270,9 @@ class _UsersScreenState extends State<UsersScreen> {
                       return Container(
                         margin: const EdgeInsets.only(bottom: 10),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF2F2F2),
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? const Color(0xFFF2F2F2)
+                              : const Color(0xFFFFFFFF),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: ListTile(
@@ -282,32 +284,23 @@ class _UsersScreenState extends State<UsersScreen> {
                                 children: [
                                   Text(
                                     user['name'],
-                                    style: TextStyle(
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? const Color(0xFF1E1E1E)
-                                          : const Color(0xFFFFFFFF),
+                                    style: const TextStyle(
+                                      color: Color(0xFF1E1E1E),
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     'Admin',
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? const Color(0xFF1E1E1E)
-                                          : const Color(0xFFFFFFFF),
+                                      color: Color(0xFF1E1E1E),
                                     ),
                                   ),
                                 ],
                               ),
                               IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.delete,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? const Color(0xFF1E1E1E)
-                                      : const Color(0xFFFFFFFF),
+                                  color: Color(0xFF1E1E1E),
                                 ),
                                 onPressed: () {
                                   _deleteUser(user);
@@ -342,7 +335,10 @@ class _UsersScreenState extends State<UsersScreen> {
                           return Container(
                             margin: const EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF2F2F2),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? const Color(0xFFF2F2F2)
+                                  : const Color(0xFFFFFFFF),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: ListTile(
@@ -356,32 +352,23 @@ class _UsersScreenState extends State<UsersScreen> {
                                     children: [
                                       Text(
                                         user['name'],
-                                        style: TextStyle(
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? const Color(0xFF1E1E1E)
-                                              : const Color(0xFFFFFFFF),
+                                        style: const TextStyle(
+                                          color: Color(0xFF1E1E1E),
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         'User',
                                         style: TextStyle(
                                           fontSize: 12,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.dark
-                                              ? const Color(0xFF1E1E1E)
-                                              : const Color(0xFFFFFFFF),
+                                          color: Color(0xFF1E1E1E),
                                         ),
                                       ),
                                     ],
                                   ),
                                   IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? const Color(0xFF1E1E1E)
-                                          : const Color(0xFFFFFFFF),
+                                      color: Color(0xFF1E1E1E),
                                     ),
                                     onPressed: () {
                                       _deleteUser(user);
@@ -406,7 +393,7 @@ class _UsersScreenState extends State<UsersScreen> {
                           width: 250,
                           height: 100,
                           padding: const EdgeInsets.all(20),
-                          child: ElevatedButton(
+                          child: OutlinedButton(
                             onPressed: () async {
                               await showDialog(
                                 context: context,
@@ -420,7 +407,7 @@ class _UsersScreenState extends State<UsersScreen> {
                                     widget._token, widget._selectedIndex)),
                               );
                             },
-                            style: ElevatedButton.styleFrom(
+                            style: OutlinedButton.styleFrom(
                               minimumSize: const Size(double.infinity, 50),
                             ),
                             child: const Text('Adicionar'),

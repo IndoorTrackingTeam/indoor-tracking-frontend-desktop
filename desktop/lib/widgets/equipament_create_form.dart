@@ -86,7 +86,7 @@ class _EquipamentCreateFormState extends State<EquipamentCreateForm> {
                     child: SizedBox(
                       width: 200,
                       height: 60,
-                      child: ElevatedButton(
+                      child: OutlinedButton(
                         onPressed: () async {
                           final String name = nameController.text;
                           final String register = registerController.text;
