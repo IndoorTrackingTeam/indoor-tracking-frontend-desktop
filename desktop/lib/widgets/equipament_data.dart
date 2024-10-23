@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:desktop/api/equipament_service.dart';
+import 'package:desktop/widgets/equipament_update_form.dart';
 
 class EquipamentData extends StatelessWidget {
   final dynamic equipament;
@@ -46,14 +50,21 @@ class EquipamentData extends StatelessWidget {
                     const SizedBox(width: 10),
                     IconButton(
                       onPressed: () {
-                        // Lógica para editar informações
+                        showDialog(
+                          context: context,
+                          builder: (context) => EquipamentUpdateForm(
+                            name: equipament['name'],
+                            register: equipament['register'],
+                            espId: equipament["esp_id"],
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.edit),
                     ),
                     const SizedBox(width: 10),
                     IconButton(
                       onPressed: () {
-                        _showDeleteConfirmationDialog(context);
+                        _showDeleteConfirmationDialog(context, equipament);
                       },
                       icon: const Icon(Icons.delete),
                     ),
@@ -84,21 +95,25 @@ class EquipamentData extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Expanded(
-              child: ListView.builder(
-                itemCount: (data['historic'] ?? []).length,
-                itemBuilder: (context, index) {
-                  var initialDate =
-                      DateTime.parse(data['historic'][index]['initial_date']);
-                  var formattedDate =
-                      DateFormat('HH:mm dd/MM/yyyy').format(initialDate);
-                  return _textEquipamentHistoric(
-                    'Sala ${data['historic'][index]['room']}',
-                    formattedDate,
-                    context,
-                  );
-                },
-              ),
-            ),
+              child: (data['historic'] ?? []).isEmpty
+                  ? const Center(
+                      child: Text('Nenhum histórico disponível'),
+                    )
+                  : ListView.builder(
+                      itemCount: data['historic'].length,
+                      itemBuilder: (context, index) {
+                        var initialDate = DateTime.parse(
+                            data['historic'][index]['initial_date']);
+                        var formattedDate =
+                            DateFormat('HH:mm dd/MM/yyyy').format(initialDate);
+                        return _textEquipamentHistoric(
+                          'Sala ${data['historic'][index]['room']}',
+                          formattedDate,
+                          context,
+                        );
+                      },
+                    ),
+            )
           ],
         ),
       ),
@@ -183,10 +198,11 @@ class EquipamentData extends StatelessWidget {
   }
 }
 
-void _showDeleteConfirmationDialog(BuildContext context) {
+void _showDeleteConfirmationDialog(BuildContext context, dynamic equipament) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
+      final EquipamentService equipamentService = EquipamentService();
       return AlertDialog(
         title: Text(
           "Confirmar Exclusão",
@@ -223,8 +239,9 @@ void _showDeleteConfirmationDialog(BuildContext context) {
             style: TextButton.styleFrom(
               backgroundColor: const Color.fromARGB(255, 167, 38, 38),
             ),
-            onPressed: () {
-              // Lógica para apagar o equipamento
+            onPressed: () async {
+              await equipamentService.deleteEquipament(equipament['register']);
+              Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
             child: const Text("Apagar"),

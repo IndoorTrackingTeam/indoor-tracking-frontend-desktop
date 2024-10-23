@@ -106,4 +106,31 @@ class EquipamentService {
       throw Exception(e.toString());
     }
   }
+
+  Future<String> deleteEquipament(String register) async {
+    final url = Uri.parse('$path/equipment/delete?register_=$register');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept-Charset': 'UTF-8',
+    };
+
+    try {
+      final response = await http.delete(
+        url,
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(utf8.decode(response.bodyBytes));
+        return responseData['message'];
+      } else {
+        final errorMessage =
+            jsonDecode(utf8.decode(response.bodyBytes))['message'];
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

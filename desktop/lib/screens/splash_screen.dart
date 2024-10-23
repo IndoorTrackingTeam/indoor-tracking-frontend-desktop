@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (isLoggedIn) {
       String token = prefs.getString('auth_token') ?? '';
       Navigator.of(context)
-          .pushReplacement(_createRoute(EquipamentsScreen(token, 1)));
+          .pushReplacement(_createRoute(EquipamentsScreen(token, 0)));
     } else {
       Navigator.of(context).pushReplacement(_createRoute(const LoginScreen()));
     }

@@ -5,7 +5,7 @@ import 'package:desktop/screens/equipaments_screen.dart';
 import 'package:desktop/screens/login_screen.dart';
 import 'package:desktop/screens/settings_screen.dart';
 import 'package:desktop/screens/users_screen.dart';
-import 'package:desktop/widgets/equipament_form.dart';
+import 'package:desktop/widgets/equipament_create_form.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,7 +40,6 @@ class _NavbarState extends State<Navbar> {
   }
 
   final List<Map<String, dynamic>> _navItems = [
-    {'icon': Icons.search, 'title': 'Search...'},
     {'icon': Icons.earbuds_rounded, 'title': 'Equipaments'},
     {'icon': Icons.create, 'title': 'Create'},
     {'icon': Icons.person, 'title': 'Users'},
@@ -57,7 +56,7 @@ class _NavbarState extends State<Navbar> {
     } else if (_navItems[index]['title'] == 'Create') {
       showDialog(
         context: context,
-        builder: (context) => EquipamentForm(),
+        builder: (context) => EquipamentCreateForm(),
       );
     } else if (_navItems[index]['title'] == 'Users') {
       Navigator.pushReplacement(
@@ -70,11 +69,6 @@ class _NavbarState extends State<Navbar> {
         _createRoute(SettingsScreen(widget.token, index)),
       );
     } else if (_navItems[index]['title'] == 'Mobile App') {
-      Navigator.pushReplacement(
-        context,
-        _createRoute(EquipamentsScreen(widget.token, index)),
-      );
-    } else {
       Navigator.pushReplacement(
         context,
         _createRoute(EquipamentsScreen(widget.token, index)),

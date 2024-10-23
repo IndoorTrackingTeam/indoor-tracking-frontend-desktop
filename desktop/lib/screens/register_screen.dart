@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String email = _emailController.text;
       String password = _passwordController.text;
       try {
-        await userService.signUpEmailPassword(name, password, email);
+        await userService.createUser(name, password, email);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

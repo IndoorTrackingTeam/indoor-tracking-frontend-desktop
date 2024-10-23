@@ -38,8 +38,7 @@ class UserService {
     }
   }
 
-  Future<String> signUpEmailPassword(
-      String name, String password, String email) async {
+  Future<String> createUser(String name, String password, String email) async {
     final url = Uri.parse('$path/user/create');
 
     final headers = {
@@ -118,6 +117,81 @@ class UserService {
       }
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  Future<List<dynamic>> getAllUsers() async {
+    final url = Uri.parse('$path/user/read-all');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        var responseBody = utf8.decode(response.bodyBytes);
+        return jsonDecode(responseBody);
+      } else {
+        throw Exception('Failed to load users');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<String> updateUserAdmin(String email, bool isAdmin) async {
+    final url = Uri.parse('$path/user/change-user-admin');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept-Charset': 'UTF-8',
+    };
+
+    final body = jsonEncode({
+      "email": email,
+      "isAdmin": isAdmin,
+    });
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        return 'Success';
+      } else {
+        final errorMessage =
+            jsonDecode(utf8.decode(response.bodyBytes))['detail'];
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> deleteUser(String email) async {
+    final url = Uri.parse('$path/user/delete?user_email=$email');
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept-Charset': 'UTF-8',
+    };
+
+    try {
+      final response = await http.delete(
+        url,
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        final errorMessage =
+            jsonDecode(utf8.decode(response.bodyBytes))['detail'];
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      throw Exception('Erro ao excluir o usuário: $e');
     }
   }
 }

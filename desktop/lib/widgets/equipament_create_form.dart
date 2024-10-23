@@ -2,18 +2,18 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:desktop/api/equipament_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:desktop/api/equipament_service.dart';
 
-class EquipamentForm extends StatefulWidget {
-  const EquipamentForm({super.key});
+class EquipamentCreateForm extends StatefulWidget {
+  const EquipamentCreateForm({super.key});
 
   @override
-  _EquipamentFormState createState() => _EquipamentFormState();
+  _EquipamentCreateFormState createState() => _EquipamentCreateFormState();
 }
 
-class _EquipamentFormState extends State<EquipamentForm> {
+class _EquipamentCreateFormState extends State<EquipamentCreateForm> {
   final EquipamentService equipamentService = EquipamentService();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController registerController = TextEditingController();
@@ -21,7 +21,7 @@ class _EquipamentFormState extends State<EquipamentForm> {
   final ImagePicker _picker = ImagePicker();
   String? imagePath;
   String image64 = '';
-  bool _isLoading = false; // Controle de loading
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _EquipamentFormState extends State<EquipamentForm> {
       ),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.4,
-        height: 400, //MediaQuery.of(context).size.height * 0.4
+        height: 400,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: Theme.of(context).brightness == Brightness.dark
