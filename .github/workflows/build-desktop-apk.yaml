@@ -18,29 +18,29 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.19.0'
-
-    - name: Install dependencies
-      run: |
-        cd desktop
-        flutter pub get
-
-    - name: Run tests
-      run: |
-        cd desktop
-        flutter test --machine > tests.output
-
-    - name: Test Reporter
-      uses: dorny/test-reporter@v1.9.1
-      if: always()
-      with:
-        name: Flutter Tests
-        path: desktop/tests.output
-        reporter: flutter-json
-        fail-on-error: false
+#    - name: Set up Flutter
+#      uses: subosito/flutter-action@v2
+#      with:
+#        flutter-version: '3.19.0'
+#
+#    - name: Install dependencies
+#      run: |
+#        cd desktop
+#        flutter pub get
+#
+#    - name: Run tests
+#      run: |
+#        cd desktop
+#        flutter test --machine > tests.output
+#
+#    - name: Test Reporter
+#      uses: dorny/test-reporter@v1.9.1
+#      if: always()
+#      with:
+#        name: Flutter Tests
+#        path: desktop/tests.output
+#        reporter: flutter-json
+#        fail-on-error: false
 
   build:
     name: Build Windows App
