@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-const String path = 'https://run-api-dev-131050301176.us-east1.run.app';
+const String path = 'https://run-api-prod-131050301176.us-east1.run.app';
 
 class UserService {
   Future<String> signInEmailPassword(String email, String password) async {
@@ -192,6 +192,25 @@ class UserService {
       }
     } catch (e) {
       throw Exception('Erro ao excluir o usuário: $e');
+    }
+  }
+
+  Future<String> sendEmailRedefinePassword(String email) async {
+    final url =
+        Uri.parse('$path/user/send-email/redefine-password?email=$email');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        return 'Email de redefinição de senha enviado com sucesso.';
+      } else {
+        final errorMessage =
+            jsonDecode(utf8.decode(response.bodyBytes))['detail'];
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      throw Exception('Erro ao enviar o email de redefinição: ${e.toString()}');
     }
   }
 }
