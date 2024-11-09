@@ -1,0 +1,74 @@
+name: Build Desktop App (Windows)
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  checks: write
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+
+    - name: Install dependencies
+      run: |
+        cd desktop
+        flutter pub get
+
+    - name: Run tests
+      run: |
+        cd desktop
+        flutter test --machine > tests.output
+
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.9.1
+      if: always()
+      with:
+        name: Flutter Tests
+        path: desktop/tests.output
+        reporter: flutter-json
+        fail-on-error: false
+
+  build:
+    name: Build Windows App
+    runs-on: windows-latest
+    needs: tests
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        flutter-version: '3.19.0'
+
+    - name: Install dependencies
+      run: |
+        cd desktop
+        flutter pub get
+
+    - name: Build Windows Executable
+      run: |
+        cd desktop
+        flutter build windows --release
+
+    - name: Upload Windows Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Indoor Tracking Windows App
+        path: desktop/build/windows/runner/Release/
