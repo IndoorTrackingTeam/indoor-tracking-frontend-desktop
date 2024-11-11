@@ -36,9 +36,12 @@ jobs:
 
       - name: Download and Extract Inno Setup Portable
         run: |
-          curl -L -o innosetup.zip https://www.jrsoftware.org/download.php/is.zip
+          curl -L -o innosetup.zip https://github.com/innoSetup/inno-setup/releases/download/v6.2/innosetup-6.2.0.exe
+          # Verificar se o arquivo foi baixado com sucesso
+          ls -l innosetup.zip
           mkdir innosetup
           Expand-Archive -Path innosetup.zip -DestinationPath innosetup
+        shell: pwsh
 
       - name: Create Installer with Inno Setup
         run: |
