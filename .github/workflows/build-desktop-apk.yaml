@@ -34,10 +34,10 @@ jobs:
           cd desktop
           flutter build windows --release
 
-      - name: Download Inno Setup
+      - name: Download Inno Setup Portable
         run: |
-          curl -L -o innosetup.exe https://jrsoftware.org/download.php/is.exe
-          Start-Process -Wait -FilePath innosetup.exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-'
+          curl -L -o innosetup.zip https://www.jrsoftware.org/download.php/is.zip
+          tar -xf innosetup.zip -C innosetup
 
       - name: Create Installer with Inno Setup
         run: |
