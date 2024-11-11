@@ -3,12 +3,12 @@ description: "A new Flutter project."
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.3
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: '3.19.0'
 
 dependencies:
   flutter:
     sdk: flutter
-
   window_manager: ^0.4.2
   http: ^1.2.1
   cupertino_icons: ^1.0.6
