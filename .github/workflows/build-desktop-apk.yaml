@@ -37,7 +37,7 @@ jobs:
       - name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
-          path: desktop/installers/IndoorTracking.iss
+          path: desktop/IndoorTracking.iss
           options: /O+
 
 
