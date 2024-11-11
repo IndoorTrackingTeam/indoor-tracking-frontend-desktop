@@ -9,7 +9,7 @@ Compression=lzma
 SolidCompression=yes
 
 [Files]
-Source: "build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\a\indoor-tracking-frontend-desktop\indoor-tracking-frontend-desktop\desktop\build\windows\x64\runner\Release\*"; DestDir: "{app}\"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\Indoor Tracking App"; Filename: "{app}\IndoorTrackingApp.exe"
