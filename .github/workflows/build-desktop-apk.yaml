@@ -44,4 +44,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Indoor Tracking Installer
-          path: desktop/installers/Output/IndoorTracking.exe
+          path: desktop/installers/Output/IndoorTrackingInstaller.exe
