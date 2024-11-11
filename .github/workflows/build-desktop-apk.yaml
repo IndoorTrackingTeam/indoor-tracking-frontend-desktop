@@ -34,14 +34,15 @@ jobs:
           cd desktop
           flutter build windows --release
 
-      - name: Download Inno Setup Portable
+      - name: Download and Extract Inno Setup Portable
         run: |
           curl -L -o innosetup.zip https://www.jrsoftware.org/download.php/is.zip
-          tar -xf innosetup.zip -C innosetup
+          mkdir innosetup
+          Expand-Archive -Path innosetup.zip -DestinationPath innosetup
 
       - name: Create Installer with Inno Setup
         run: |
-          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installers/installer_script.iss
+          innosetup/ISCC.exe installers/installer_script.iss
         working-directory: desktop
 
       - name: Upload Windows Installer
