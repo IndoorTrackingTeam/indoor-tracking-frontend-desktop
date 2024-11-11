@@ -34,22 +34,14 @@ jobs:
           cd desktop
           flutter build windows --release
 
-      - name: Download and Extract Inno Setup Portable
-        run: |
-          curl -L -o innosetup.zip https://github.com/innoSetup/inno-setup/releases/download/v6.2/innosetup-6.2.0.exe
-          # Verificar se o arquivo foi baixado com sucesso
-          ls -l innosetup.zip
-          mkdir innosetup
-          Expand-Archive -Path innosetup.zip -DestinationPath innosetup
-        shell: pwsh
-
-      - name: Create Installer with Inno Setup
-        run: |
-          innosetup/ISCC.exe installers/installer_script.iss
-        working-directory: desktop
+      - name: Compile .ISS to .EXE Installer
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        with:
+          path: desktop/installers/IndoorTracking.iss
+          options: /O+
 
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v3
         with:
           name: Indoor Tracking Installer
-          path: desktop/installers/Output/IndoorTrackingInstaller.exe
+          path: desktop/installers/Output/IndoorTracking.exe
