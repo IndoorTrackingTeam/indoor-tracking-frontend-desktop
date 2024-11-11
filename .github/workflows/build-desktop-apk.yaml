@@ -71,4 +71,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Indoor Tracking Windows App
-        path: desktop/build/windows/runner/Release/
+        path: desktop/build/windows/x64/runner/Release/
