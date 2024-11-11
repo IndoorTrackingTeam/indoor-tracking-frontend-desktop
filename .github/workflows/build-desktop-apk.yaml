@@ -39,9 +39,6 @@ jobs:
         with:
           path: desktop/installers/IndoorTracking.iss
           options: /O+
-        env:
-          FLUTTER_ROOT: C:\hostedtoolcache\windows\flutter\stable-3.19.0-x64
-          PUB_CACHE: C:\Users\runneradmin\AppData\Local\Pub\Cache
 
 
       - name: Upload Windows Installer
