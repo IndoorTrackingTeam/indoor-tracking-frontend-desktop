@@ -5,7 +5,7 @@
 #define MyAppVersion "1.0"
 #define MyAppPublisher "Indoor Tracking Team"
 #define MyAppURL "https://github.com/IndoorTrackingTeam"
-#define MyAppExeName "IndoorTracking.exe"
+#define MyAppExeName "desktop.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
