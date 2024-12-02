@@ -1,0 +1,54 @@
+name: Flutter Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      manual_deploy:
+        description: "Manual Deploy"
+        required: true
+        type: boolean
+        default: true
+  push:
+    branches: 
+      - main
+      - development
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+
+    - name: Install dependencies
+      run: |
+        cd mobile
+        flutter pub get
+
+    - name: Run tests
+      run: |
+        cd mobile
+        flutter test --machine > tests.output
+
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.9.1
+      if: always()
+      with:
+        name: Flutter Tests
+        path: mobile/tests.output
+        reporter: flutter-json
+        fail-on-error: false
