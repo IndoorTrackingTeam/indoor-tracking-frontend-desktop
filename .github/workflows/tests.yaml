@@ -36,12 +36,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd mobile
+        cd desktop
         flutter pub get
 
     - name: Run tests
       run: |
-        cd mobile
+        cd desktop
         flutter test --machine > tests.output
 
     - name: Test Reporter
@@ -49,6 +49,6 @@ jobs:
       if: always()
       with:
         name: Flutter Tests
-        path: mobile/tests.output
+        path: desktop/tests.output
         reporter: flutter-json
         fail-on-error: false
