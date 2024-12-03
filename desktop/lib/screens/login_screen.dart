@@ -280,24 +280,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 side: BorderSide(width: 1),
                               ),
-                              Text(
-                                'Lembrar de mim',
-                              ),
-                              Spacer(),
-                              GestureDetector(
-                                key: Key("forgot_password_key"),
-                                onTap: () {
-                                  Navigator.of(context).pushReplacement(
-                                      _createRoute(PasswordScreen()));
-                                },
+                              Expanded(
                                 child: Text(
-                                  'Esqueceu a senha?',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    decoration: TextDecoration.underline,
+                                  'Lembrar de mim',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Flexible(
+                                child: GestureDetector(
+                                  key: Key("forgot_password_key"),
+                                  onTap: () {
+                                    Navigator.of(context).pushReplacement(
+                                      _createRoute(PasswordScreen()),
+                                    );
+                                  },
+                                  child: Text(
+                                    'Esqueceu a senha?',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                           SizedBox(

@@ -109,7 +109,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
               ),
               SizedBox(height: 24),
               TextFormField(
-                key: Key("email_key"),
+                key: Key("email_input_field"),
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
@@ -119,7 +119,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
               ),
               SizedBox(height: 24),
               OutlinedButton(
-                key: Key("login_button"),
+                key: Key("send_recovery_email_button"),
                 onPressed: _sendRecoveryPassword,
                 style: OutlinedButton.styleFrom(
                   minimumSize: Size(double.infinity, 56),
