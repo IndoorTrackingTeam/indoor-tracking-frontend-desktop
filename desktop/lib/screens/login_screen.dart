@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _token = await userService.signInEmailPassword(email, password);
         await _saveLogin(_token);
         Navigator.of(context)
-            .pushReplacement(_createRoute(EquipamentsScreen(_token, 1)));
+            .pushReplacement(_createRoute(EquipamentsScreen(_token, 0)));
       } catch (e) {
         if (e.toString().contains('email')) {
           ScaffoldMessenger.of(context).showSnackBar(

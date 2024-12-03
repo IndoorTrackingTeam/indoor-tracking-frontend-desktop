@@ -278,9 +278,9 @@ Widget cardEquipament(BuildContext context, dynamic equipament) {
                     fit: BoxFit.cover,
                   )
                 : Image.asset(
-                    "default.png",
+                    "assets/images/default.png",
                     width: 150,
-                    height: 100,
+                    height: 200,
                     fit: BoxFit.cover,
                   ),
           ),
@@ -310,7 +310,9 @@ Widget cardEquipament(BuildContext context, dynamic equipament) {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  equipament['c_room'],
+                  equipament['c_room'] == null || equipament['c_room'] == 'none'
+                      ? 'Nenhuma'
+                      : equipament['c_room'],
                   style: const TextStyle(
                     fontSize: 14,
                     color: Color(0xFFF2F2F2),

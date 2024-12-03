@@ -79,8 +79,9 @@ class EquipamentData extends StatelessWidget {
             const Divider(),
             _textEquipament(equipament['name'].toUpperCase(), context),
             _textEquipament(equipament['register'].toString(), context),
-            _textEquipament(
-                "Última vez visto na sala ${equipament['c_room']}", context),
+            equipament['c_room'] == null || equipament['c_room'] == 'none'
+                ? _textEquipament("Nenhuma", context)
+                : _textEquipament("${equipament['c_room']}", context),
             const SizedBox(height: 10),
             const Divider(),
             const Align(
