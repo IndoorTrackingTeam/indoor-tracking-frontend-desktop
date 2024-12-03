@@ -30,9 +30,9 @@ ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\GitHub\indoor-tracking-frontend-desktop\desktop\installers
+OutputDir=Output
 OutputBaseFilename=IndoorTracking
-SetupIconFile=C:\GitHub\indoor-tracking-frontend-desktop\desktop\assets\images\logo.ico
+SetupIconFile=desktop\assets\images\logo.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
